@@ -1,7 +1,7 @@
 {
   "gateway": {
     "name": "Digital Craftsmen",
-    "bind": "0.0.0.0",
+    "bind": "lan",
     "auth": {
       "mode": "token"
     }
