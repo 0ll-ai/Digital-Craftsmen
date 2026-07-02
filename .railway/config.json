@@ -11,6 +11,15 @@
       "workspace": "/home/node/.openclaw/workspace"
     }
   },
-  "channels": [],
+  "channels": {
+    "discord": {
+      "token": "${DISCORD_BOT_TOKEN}",
+      "dmPolicy": "open"
+    },
+    "telegram": {
+      "botToken": "${TELEGRAM_BOT_TOKEN}",
+      "dmPolicy": "open"
+    }
+  },
   "skills": []
 }
