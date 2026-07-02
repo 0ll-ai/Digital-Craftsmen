@@ -1,7 +1,7 @@
-# 🦞 Digital Craftsmen — Personal AI Assistant
+# 📍 Digital Craftsmen — Personal AI Assistant
 
 <p align="center">
-    <img src="https://i.postimg.cc/43zg4HtG/00129979798f261190ba6fd59b6931f5-ezgif-com-crop.gif" alt="Digital Craftsmen" width="500" />
+    <img src="https://i.postimg.cc/zfpcXcKQ/Picsart-26-07-02-12-14-28-365.jpg" alt="Digital Craftsmen" width="500" />
 </p>
 
 <p align="center">
@@ -13,8 +13,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/0ll-ai/Digital-Craftsmen/actions/workflows/ci.yml?branch=main"><img src="https://img.shields.io/github/actions/workflow/status/0ll-ai/Digital-Craftsmen/ci.yml?branch=main&style=for-the-badge" alt="CI Status"></a>
-  <a href="https://github.com/0ll-ai/Digital-Craftsmen/releases"><img src="https://img.shields.io/github/v/release/0ll-ai/Digital-Craftsmen?include_prereleases&style=for-the-badge" alt="GitHub release"></a>
+  <a href="https://github.com/0ll-ai/Digital-Craftsmen/actions/workflows/ci.yml?branch=main"><img src="https://img.shields.io/github/actions/workflow/status/0ll-ai/Digital-Craftsmen/ci.yml?branch=main" alt="Build Status"></a>
+  <a href="https://github.com/0ll-ai/Digital-Craftsmen/releases"><img src="https://img.shields.io/github/v/release/0ll-ai/Digital-Craftsmen?include_prereleases&style=for-the-badge" alt="GitHub rel"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="MIT License"></a>
 </p>
 
@@ -50,7 +50,7 @@
 
 ## About Digital Craftsmen
 
-**Digital Craftsmen** is a powerful _personal AI assistant_ you run on your own devices. It answers you on the channels you already use, speaks and listens on macOS/iOS/Android, and renders a live Canvas you can control. The Gateway is just the control plane — the product is the experience.
+**Digital Craftsmen** is a powerful _personal AI assistant_ you run on your own devices. It answers you on the channels you already use, speaks and listens on macOS/iOS/Android, and renders a live[...]
 
 If you want a personal, single-user assistant that feels local, fast, and always-on, this is it.
 
