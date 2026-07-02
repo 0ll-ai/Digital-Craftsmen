@@ -327,6 +327,10 @@ RUN install -d -m 0755 -o node -g node /home/node/.config && \
     stat -c '%U:%G %a' /home/node/.config | grep -qx 'node:node 755' && \
     stat -c '%U:%G %a' /home/node/.config/openclaw | grep -qx 'node:node 700'
 
+# Pre-create /app/workspace and /app/state for OPENCLAW_WORKSPACE_DIR and OPENCLAW_STATE_DIR
+# environment variable overrides. Both are writable by the node user at runtime.
+RUN install -d -m 0700 -o node -g node /app/workspace /app/state
+
 ENV NODE_ENV=production
 
 # Security hardening: Run as non-root user
