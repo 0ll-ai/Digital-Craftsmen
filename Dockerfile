@@ -75,7 +75,7 @@ COPY --from=workspace-deps /out/${OPENCLAW_BUNDLED_PLUGIN_DIR}/ ./${OPENCLAW_BUN
 
 # Reduce OOM risk on low-memory hosts during dependency installation.
 # Docker builds on small VMs may otherwise fail with "Killed" (exit 137).
-RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
+RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store \
     NODE_OPTIONS=--max-old-space-size=2048 pnpm install --frozen-lockfile \
       --config.supportedArchitectures.os=linux \
       --config.supportedArchitectures.cpu="$(node -p 'process.arch')" \
@@ -145,7 +145,7 @@ ARG OPENCLAW_EXTENSIONS
 ARG OPENCLAW_BUNDLED_PLUGIN_DIR
 # BuildKit cache mounts are not part of cached layers; seed tarballs for the
 # installed prod graph in the same step that runs offline prune.
-RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
+RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store \
     node scripts/list-prod-store-packages.mjs | xargs -r pnpm store add && \
     CI=true pnpm prune --prod \
       --config.offline=true \
@@ -189,8 +189,8 @@ WORKDIR /app
 # so it must be installed explicitly here. Without it `/etc/ssl/certs/`
 # stays empty and every HTTPS outbound dies at TLS handshake with
 # `error setting certificate file`.
-RUN --mount=type=cache,target=/var/cache/apt \
-    --mount=type=cache,target=/var/lib/apt \
+RUN --mount=type=cache,id=apt-cache,target=/var/cache/apt \
+    --mount=type=cache,id=apt-lib,target=/var/lib/apt \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
       ca-certificates curl git hostname lsof openssl procps python3 tini && \
@@ -232,8 +232,8 @@ RUN install -d -m 0755 "$COREPACK_HOME" && \
 # Legacy alias: OPENCLAW_DOCKER_APT_PACKAGES is still accepted as a fallback.
 ARG OPENCLAW_IMAGE_APT_PACKAGES
 ARG OPENCLAW_DOCKER_APT_PACKAGES=""
-RUN --mount=type=cache,target=/var/cache/apt \
-    --mount=type=cache,target=/var/lib/apt \
+RUN --mount=type=cache,id=apt-cache,target=/var/cache/apt \
+    --mount=type=cache,id=apt-lib,target=/var/lib/apt \
     packages="${OPENCLAW_IMAGE_APT_PACKAGES-$OPENCLAW_DOCKER_APT_PACKAGES}"; \
     if [ -n "$packages" ]; then \
       apt-get update && \
@@ -243,8 +243,8 @@ RUN --mount=type=cache,target=/var/cache/apt \
 # Install additional Python packages needed by your plugins or skills.
 # Example: docker build --build-arg OPENCLAW_IMAGE_PIP_PACKAGES="requests humanize" .
 ARG OPENCLAW_IMAGE_PIP_PACKAGES=""
-RUN --mount=type=cache,target=/var/cache/apt \
-    --mount=type=cache,target=/var/lib/apt \
+RUN --mount=type=cache,id=apt-cache,target=/var/cache/apt \
+    --mount=type=cache,id=apt-lib,target=/var/lib/apt \
     if [ -n "$OPENCLAW_IMAGE_PIP_PACKAGES" ]; then \
       if ! python3 -m pip --version >/dev/null 2>&1; then \
         apt-get update && \
@@ -259,8 +259,8 @@ RUN --mount=type=cache,target=/var/cache/apt \
 # Must run after node_modules COPY so playwright-core is available.
 ARG OPENCLAW_INSTALL_BROWSER=""
 ENV PLAYWRIGHT_BROWSERS_PATH=/home/node/.cache/ms-playwright
-RUN --mount=type=cache,target=/var/cache/apt \
-    --mount=type=cache,target=/var/lib/apt \
+RUN --mount=type=cache,id=apt-cache,target=/var/cache/apt \
+    --mount=type=cache,id=apt-lib,target=/var/lib/apt \
     if [ -n "$OPENCLAW_INSTALL_BROWSER" ]; then \
       apt-get update && \
       DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends xvfb && \
@@ -275,8 +275,8 @@ RUN --mount=type=cache,target=/var/cache/apt \
 # Required for agents.defaults.sandbox to function in Docker deployments.
 ARG OPENCLAW_INSTALL_DOCKER_CLI=""
 ARG OPENCLAW_DOCKER_GPG_FINGERPRINT="9DC858229FC7DD38854AE2D88D81803C0EBFCD88"
-RUN --mount=type=cache,target=/var/cache/apt \
-    --mount=type=cache,target=/var/lib/apt \
+RUN --mount=type=cache,id=apt-cache,target=/var/cache/apt \
+    --mount=type=cache,id=apt-lib,target=/var/lib/apt \
     if [ -n "$OPENCLAW_INSTALL_DOCKER_CLI" ]; then \
       apt-get update && \
       DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
