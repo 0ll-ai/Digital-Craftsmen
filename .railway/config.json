@@ -1,7 +1,6 @@
 {
   "gateway": {
     "name": "Digital Craftsmen",
-    "port": 18789,
     "bind": "0.0.0.0",
     "auth": {
       "mode": "token"

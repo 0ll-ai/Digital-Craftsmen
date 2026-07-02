@@ -5,7 +5,7 @@
     "dockerfile": "Dockerfile"
   },
   "deploy": {
-    "startCommand": "node openclaw.mjs gateway",
+    "startCommand": "sh -c 'OPENCLAW_GATEWAY_PORT=${PORT:-18789} node openclaw.mjs gateway'",
     "restartPolicyMaxRetries": 5,
     "restartPolicyWindowMs": 60000,
     "healthchecks": {
